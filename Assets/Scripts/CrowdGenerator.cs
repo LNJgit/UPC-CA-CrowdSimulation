@@ -1,61 +1,77 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class CrowdGenerator : MonoBehaviour
 {
     public GameObject prefab;
     [SerializeField] private int N = 20;
-    [SerializeField] private float Minimum_distance = 2.0f;
-    System.Random random = new System.Random();
+    [SerializeField] private float MinimumDistance = 2.0f;
+    [SerializeField] private float spawnRange = 20.0f;
+
     private List<Vector3> positions = new List<Vector3>();
 
     void Start()
     {
-        Vector3 spawnPosition;
-        int maxAttempts = 100;
-        int attempts = 0;
         int spawnedObjects = 0;
 
-        while(spawnedObjects<N && attempts < maxAttempts)
+        while (spawnedObjects < N)
         {
-            float x  = (float)random.NextDouble()*20-10;
-            float z  = (float)random.NextDouble()*20-10;
-            spawnPosition  = new Vector3(x,0,z);
+            Vector3 spawnPosition = GenerateRandomPosition();
 
-            if(IsValidPosition(spawnPosition))
+            bool success = false;
+            for (int attempt = 0; attempt < 100; attempt++)
             {
-                positions.Add(spawnPosition);
-                Instantiate(prefab, spawnPosition, Quaternion.identity);
-                spawnedObjects++;
-            }
-            else
-            {
-                attempts++;
-                if (attempts == 100)
+                if (IsValidPosition(spawnPosition))
                 {
-                    Debug.Log("Failed to allocate prefab");
+                    positions.Add(spawnPosition);
+
+                    GameObject agentObject = Instantiate(prefab, spawnPosition, Quaternion.identity);
+
+                    Agent agent = agentObject.GetComponent<Agent>();
+                    if (agent != null)
+                    {
+                        PathManager.Instance.RegisterAgent(agent);
+                    }
+                    else
+                    {
+                        Debug.LogError("The prefab does not have an Agent script attached!");
+                    }
+
+                    spawnedObjects++;
+                    success = true;
+                    break;
+                }
+                else
+                {
+                    spawnPosition = GenerateRandomPosition();
                 }
             }
+
+            if (!success)
+            {
+                Debug.LogWarning($"Failed to place object {spawnedObjects + 1} after 100 attempts.");
+                break;
+            }
         }
+    }
+
+    private Vector3 GenerateRandomPosition()
+    {
+        float x = Random.Range(-spawnRange / 2, spawnRange / 2);
+        float z = Random.Range(-spawnRange / 2, spawnRange / 2);
+        return new Vector3(x, 1, z);
     }
 
     private bool IsValidPosition(Vector3 spawnPosition)
     {
         foreach (var position in positions)
         {
-            if ((position - spawnPosition).magnitude < Minimum_distance)
+            if (Vector3.Distance(position, spawnPosition) < MinimumDistance)
             {
-                return false; // Too close to another object
+                return false;
             }
         }
         return true;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
