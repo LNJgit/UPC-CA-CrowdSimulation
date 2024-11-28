@@ -34,19 +34,15 @@ public class Tracker : MonoBehaviour
         Vector3 currentForward = transform.forward;
         Vector3 lastForward = lastRotation * Vector3.forward;
 
-        
-        Vector3 crossProduct = Vector3.Cross(lastForward, currentForward);
-        if (crossProduct.y > 0)
-        {
-            return 1f; 
-        }
-        else if (crossProduct.y < 0)
-        {
-            return -1f; 
-        }
+        // Calculate the signed angle in degrees between the two vectors
+        float angle = Vector3.SignedAngle(lastForward, currentForward, Vector3.up);
 
-        return 0f; 
+        float scaledDirection = angle*10;
+
+        return Mathf.Clamp(scaledDirection, -1f, 1f); // Clamp to avoid extreme values
     }
+
+
 
     public float calculateDirectionLocked()
     {
@@ -98,7 +94,7 @@ public class Tracker : MonoBehaviour
 
         forwardVector = transform.forward;
 
-        //Debug.Log($" Time: {Time.time}, Direction: {getDirection()}, Speed: {speed}");
+        Debug.Log($" Time: {Time.time}, Direction: {getDirection()}, Speed: {speed}");
         if (!orientationManager.lockRotation)
         {
             currentDirection = calculateDirection();

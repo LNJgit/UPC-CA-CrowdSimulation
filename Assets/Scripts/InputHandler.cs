@@ -28,7 +28,7 @@ public class InputHandler : MonoBehaviour
             }
             else
             {
-                orientationManager.Rotate(horizontal, rotateSpeed);
+                //orientationManager.Rotate(horizontal, rotateSpeed);
             }
         }
 

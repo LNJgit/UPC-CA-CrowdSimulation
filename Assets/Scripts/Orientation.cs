@@ -12,18 +12,26 @@ public class OrientationManager : MonoBehaviour
         fixedRotation = transform.rotation; 
     }
 
-    public void Rotate(float horizontal, float rotateSpeed)
+    public void Rotate(Vector3 direction, float rotateSpeed)
     {
         if (lockRotation)
         {
             transform.rotation = fixedRotation;
+            Debug.Log("Rotation is locked.");
+        }
+        else if (direction.sqrMagnitude > 0.01f)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+            Debug.Log($"Rotating to face direction: {direction}");
         }
         else
         {
-            float rotationAmount = horizontal * rotateSpeed * Time.deltaTime;
-            transform.Rotate(0, rotationAmount, 0);
+            Debug.LogWarning("Direction vector is zero or too small, skipping rotation.");
         }
     }
+
+
 
     public void LockCameraRotation(bool shouldLock)
     {

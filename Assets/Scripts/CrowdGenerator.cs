@@ -28,16 +28,6 @@ public class CrowdGenerator : MonoBehaviour
 
                     GameObject agentObject = Instantiate(prefab, spawnPosition, Quaternion.identity);
 
-                    Agent agent = agentObject.GetComponent<Agent>();
-                    if (agent != null)
-                    {
-                        PathManager.Instance.RegisterAgent(agent);
-                    }
-                    else
-                    {
-                        Debug.LogError("The prefab does not have an Agent script attached!");
-                    }
-
                     spawnedObjects++;
                     success = true;
                     break;
