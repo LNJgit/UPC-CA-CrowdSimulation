@@ -6,11 +6,11 @@ public class PathManager : MonoBehaviour
 {
     public static PathManager Instance { get; private set; }
 
-    [SerializeField] private float goalThreshold = 0.5f;
-    [SerializeField] private float avoidanceRadius = 5.0f;
+    [SerializeField] private float avoidanceRadius = 2.0f; // Personal space radius
+    [SerializeField] private float avoidanceWeight = 0.5f; // Weight for avoidance vector
+    [SerializeField] private float goalWeight = 0.5f; // Weight for goal direction
 
     private List<Agent> agents = new List<Agent>();
-    private float simulationTimeStep = 0.02f;
 
     private void Awake()
     {
@@ -24,9 +24,9 @@ public class PathManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void FixedUpdate()
     {
-        StartCoroutine(SimulationLoop());
+        UpdateAgentPaths(Time.fixedDeltaTime);
     }
 
     public void RegisterAgent(Agent agent)
@@ -37,38 +37,17 @@ public class PathManager : MonoBehaviour
         }
     }
 
-    public void UnregisterAgent(Agent agent)
-    {
-        if (agents.Contains(agent))
-        {
-            agents.Remove(agent);
-        }
-    }
-
-    private System.Collections.IEnumerator SimulationLoop()
-    {
-        while (true)
-        {
-            UpdateAgentPaths();
-            yield return new WaitForSeconds(simulationTimeStep);
-        }
-    }
-
-    public void UpdateAgentPaths()
+    public void UpdateAgentPaths(float deltaTime)
     {
         foreach (Agent agent in agents)
         {
-            if (Vector3.Distance(agent.transform.position, agent.Goal) <= goalThreshold)
-            {
-                agent.AssignNewGoal();
-            }
+            Vector3 goalDirection = (agent.Goal - agent.transform.position).normalized;
+            Vector3 avoidanceDirection = CalculateAvoidance(agent);
 
-            Vector3 avoidance = CalculateAvoidance(agent);
-            Vector3 direction = ((agent.Goal - agent.transform.position).normalized * 0.7f) +
-                                (avoidance.normalized * 0.3f);
-            direction = direction.normalized;
+            // Combine goal direction and avoidance direction
+            Vector3 finalDirection = (goalDirection * goalWeight + avoidanceDirection * avoidanceWeight).normalized;
 
-            agent.UpdateAgent(simulationTimeStep, direction);
+            agent.UpdateAgent(deltaTime, finalDirection);
         }
     }
 
@@ -83,13 +62,13 @@ public class PathManager : MonoBehaviour
                 Vector3 toOther = agent.transform.position - other.transform.position;
                 float distance = toOther.magnitude;
 
-                if (distance < avoidanceRadius)
+                if (distance < avoidanceRadius && distance > 0.01f) // Avoid division by zero
                 {
-                    avoidance += toOther.normalized / Mathf.Max(distance, 0.1f);
+                    avoidance += toOther.normalized / distance; // Stronger repulsion for closer agents
                 }
             }
         }
 
-        return Vector3.ClampMagnitude(avoidance, 1.0f);
+        return avoidance.normalized; // Normalize to keep the vector magnitude consistent
     }
 }

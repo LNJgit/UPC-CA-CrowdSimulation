@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Simulation : MonoBehaviour
@@ -15,20 +14,6 @@ public class Simulation : MonoBehaviour
         else
         {
             Instance = this;
-        }
-    }
-
-    private void Start()
-    {
-        StartCoroutine(SimulationCoroutine());
-    }
-
-    private System.Collections.IEnumerator SimulationCoroutine()
-    {
-        while (true)
-        {
-            PathManager.Instance?.UpdateAgentPaths(); // Delegate to PathManager
-            yield return new WaitForSeconds(0.02f);
         }
     }
 }

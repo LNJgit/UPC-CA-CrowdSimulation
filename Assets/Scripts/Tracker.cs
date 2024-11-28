@@ -55,19 +55,7 @@ public class Tracker : MonoBehaviour
         Vector3 right = transform.right;
 
         float direction = Vector3.Dot(displacement.normalized, right);
-
-        if (Mathf.Abs(direction) < 0.1f)
-        {
-            return 0f; // Forward or backward or no movement
-        }
-        else if (direction > 0)
-        {
-            return 1f; // Right
-        }
-        else
-        {
-            return -1f; // Left
-        }
+        return direction;
     }
 
     public float getDirection()
@@ -98,18 +86,16 @@ public class Tracker : MonoBehaviour
 
         forwardVector = transform.forward;
 
-        //Debug.Log($" Time: {Time.time}, Direction: {getDirection()}, Speed: {speed}");
-        if (!orientationManager.lockRotation)
-        {
-            currentDirection = calculateDirection();
-        }
-        else
-        {
-            currentDirection = calculateDirectionLocked();
-        }
         
+        currentDirection = calculateDirectionLocked();
+        
+
+        // Debug both speed and direction on the same line
+        Debug.Log("TRACKER | Time: " + Time.time.ToString("F2") + " | Speed: " + speed.ToString("F2") + " | Direction: " + currentDirection);
 
         lastPosition = currentPosition;
         lastRotation = currentRotation;
     }
+
+
 }

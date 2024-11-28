@@ -29,16 +29,23 @@ public class Locomotion : MonoBehaviour
             float targetSpeed = Tracker.getSpeed();
             float targetDirection = Tracker.getDirection();
 
+            // Smoothly interpolate the speed and direction
             currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
             currentDirection = Mathf.SmoothDamp(currentDirection, targetDirection, ref directionSmoothVelocity, directionSmoothTime);
 
+            // Set the animator parameters
             animator.SetFloat("Speed", currentSpeed);
             animator.SetFloat("Direction", currentDirection);
+
+            // Debug the speed and direction
+            Debug.Log("LOCOMOTION |Current Speed: " + currentSpeed + " | Current Direction: " + currentDirection);
+
         }
         else
         {
             Debug.LogError("Tracker reference is not assigned!");
         }
     }
+
 
 }
