@@ -4,57 +4,52 @@ using UnityEngine;
 
 public class Agent : MonoBehaviour
 {
-    public float moveSpeed = 1.0f; // Speed of movement
-    public float directionChangeInterval = 2.0f; // Time in seconds to change direction
-    [SerializeField] private float Minimum_distance_to_goal = 5.0f;
-
-    private Vector3 currentDirection;
-    public Vector3 Goal { get; private set; }
+    public float moveSpeed = 1.0f;
+    public float maxSeeAhead = 2.0f; // Maximum distance to look ahead for obstacles
+    public float avoidForce = 2.0f; // Force to apply for avoidance
+    private Vector3 goal;
+    private PathManager pathManager;
     public OrientationManager orientationManager;
 
     private void Start()
     {
-        if (orientationManager == null)
-        {
-            Debug.LogError("OrientationManager is not assigned!");
-        }
-
-        AssignNewGoal(); // Assign an initial goal at the start
-    }
-
-    public void AssignNewGoal()
-    {
-        do
-        {
-            Goal = new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10));
-        } while (Vector3.Distance(transform.position, Goal) < Minimum_distance_to_goal);
-
-        Debug.Log($"{gameObject.name} assigned a new goal at {Goal}");
+        pathManager = FindObjectOfType<PathManager>();
+        goal = pathManager.GetGoalForAgent(this);
     }
 
     private void Update()
     {
-        // Calculate direction toward the goal
-        Vector3 direction = (Goal - transform.position).normalized;
+        Vector3 direction = (goal - transform.position).normalized;
+        Vector3 avoidance = Vector3.zero;
 
-        // Move and rotate the agent
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, direction, out hit, maxSeeAhead))
+        {
+            if (hit.collider.CompareTag("Agent"))
+            {
+                avoidance = AvoidObstacle(hit, direction);
+                direction += avoidance * avoidForce; // Modify direction based on avoidance
+            }
+        }
+
         UpdateAgent(Time.deltaTime, direction);
 
-        // Check if the agent has reached the goal
-        if (Vector3.Distance(transform.position, Goal) < 0.5f)
+        if (Vector3.Distance(transform.position, goal) < 0.5f)
         {
-            Debug.Log($"{gameObject.name} reached its goal at {transform.position}");
-            AssignNewGoal();
+            pathManager.UpdateGoalForAgent(this);
         }
+    }
+
+    private Vector3 AvoidObstacle(RaycastHit hit, Vector3 direction)
+    {
+        Vector3 avoidVector = Vector3.Reflect(direction, hit.normal); // Reflect direction based on normal
+        return avoidVector.normalized;
     }
 
     public void UpdateAgent(float deltaTime, Vector3 direction)
     {
-        // Move towards the goal
         Vector3 velocity = direction * moveSpeed * deltaTime;
         transform.Translate(velocity, Space.World);
-
-        // Rotate towards the direction using OrientationManager
         orientationManager.Rotate(direction, moveSpeed);
     }
 }
