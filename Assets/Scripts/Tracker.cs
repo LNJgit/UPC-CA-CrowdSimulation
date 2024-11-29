@@ -94,7 +94,7 @@ public class Tracker : MonoBehaviour
 
         forwardVector = transform.forward;
 
-        Debug.Log($" Time: {Time.time}, Direction: {getDirection()}, Speed: {speed}");
+        //Debug.Log($" Time: {Time.time}, Direction: {getDirection()}, Speed: {speed}");
         if (!orientationManager.lockRotation)
         {
             currentDirection = calculateDirection();

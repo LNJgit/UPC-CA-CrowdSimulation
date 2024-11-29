@@ -23,7 +23,7 @@ public class OrientationManager : MonoBehaviour
         {
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
-            Debug.Log($"Rotating to face direction: {direction}");
+            //Debug.Log($"Rotating to face direction: {direction}");
         }
         else
         {

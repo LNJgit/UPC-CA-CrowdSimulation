@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Locomotion : MonoBehaviour
 {
-    private Tracker Tracker;
+    public Tracker tracker;
     public Animator animator;
 
     // Smoothing variables
@@ -19,15 +19,15 @@ public class Locomotion : MonoBehaviour
 
     void Start()
     {
-        Tracker = FindObjectOfType<Tracker>();
+
     }
 
     void Update()
     {
-        if (Tracker != null)
+        if (tracker != null)
         {
-            float targetSpeed = Tracker.getSpeed();
-            float targetDirection = Tracker.getDirection();
+            float targetSpeed = tracker.getSpeed();
+            float targetDirection = tracker.getDirection();
 
             currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
             currentDirection = Mathf.SmoothDamp(currentDirection, targetDirection, ref directionSmoothVelocity, directionSmoothTime);

@@ -47,7 +47,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94994f4d600414c46a293b0c46ab96b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 1
+  moveSpeed: 1
+  maxSeeAhead: 5
+  avoidForce: 10
+  orientationManager: {fileID: 0}
 --- !u!64 &3771322908964495749
 MeshCollider:
   m_ObjectHideFlags: 0
