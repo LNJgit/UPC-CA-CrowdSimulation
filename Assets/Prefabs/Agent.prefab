@@ -477,8 +477,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tracker: {fileID: 8723651980911757122}
   animator: {fileID: 3748926836520351925}
-  speedSmoothTime: 0.3
-  directionSmoothTime: 0.05
+  speedSmoothTime: 0.1
+  directionSmoothTime: 0.1
 --- !u!54 &5175558407934185721
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -504,7 +504,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!1 &2435628686026448504
 GameObject:

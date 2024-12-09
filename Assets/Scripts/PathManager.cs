@@ -30,7 +30,7 @@ public class PathManager : MonoBehaviour
 
     private Vector3 GenerateRandomGoal()
     {
-        float worldLimit = 20.0f; // Adjust as per your scene's dimensions
+        float worldLimit = 40.0f; // Adjust as per your scene's dimensions
         Vector3 goal = new Vector3(
             Random.Range(-worldLimit / 2, worldLimit / 2),
             0,
