@@ -16,12 +16,16 @@ public class Agent : MonoBehaviour
         goal = pathManager.GetGoalForAgent(this);
     }
 
-private void Update()
+    private void Update()
     {
         goal = pathManager.GetGoalForAgent(this);
         Vector3 direction = (goal - transform.position);
         float distanceToGoal = direction.magnitude;
-        direction = direction.normalized; 
+        direction = direction.normalized;
+
+        // DRAW DEBUG LINE BETWEEN AGENT AND GOAL
+        Debug.DrawLine(transform.position, goal, Color.blue);
+
         Debug.Log(gameObject.name + " Position: " + transform.position + ", Distance to Goal: " + distanceToGoal + ", Goal Position: " + goal);
 
         if (distanceToGoal < 0.5f)

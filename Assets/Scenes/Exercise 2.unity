@@ -240,6 +240,59 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b598e7a01cc4b4acaaa34b705fd56ce0, type: 3}
+--- !u!1 &1317633867
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1317633869}
+  - component: {fileID: 1317633868}
+  m_Layer: 0
+  m_Name: test
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1317633868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317633867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3397ff5060394a3a8c75ef60e415ade, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellPrefab: {fileID: 8851685362594326284, guid: 3a3a6ee69c91b476c8652a6171efa81b, type: 3}
+  startPrefab: {fileID: 919132149155446097, guid: 605e6ae93f2a148f0a196ca30e6e0d09, type: 3}
+  goalPrefab: {fileID: 919132149155446097, guid: 605e6ae93f2a148f0a196ca30e6e0d09, type: 3}
+  pathPrefab: {fileID: 1169234671259252527, guid: 9327a6c52c788466b82fc37a6fdf6521, type: 3}
+  gridMinX: -10
+  gridMaxX: 10
+  gridMinZ: -10
+  gridMaxZ: 10
+  cellSize: 2
+--- !u!4 &1317633869
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317633867}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.9814682, y: -4.78827, z: 2.4339724}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1479586000
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,7 +495,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 2254321598591591601, guid: 0f76eae1e936c4d0a909a991690cb0ef, type: 3}
-  N: 50
+  N: 0
   MinimumDistance: 2
   spawnRange: 50
 --- !u!4 &2141815915
@@ -468,3 +521,4 @@ SceneRoots:
   - {fileID: 1083010914}
   - {fileID: 1758541613}
   - {fileID: 81633328}
+  - {fileID: 1317633869}

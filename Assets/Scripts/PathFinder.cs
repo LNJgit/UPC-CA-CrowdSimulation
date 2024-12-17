@@ -12,7 +12,7 @@ namespace PathFinding{
 	where THeuristic : Heuristic<TNode>
 	{
 	// Abstract class that represents a path finding algorithm.
-	// It must have a function to find a path between two nodes using an heuristic function 
+	// It must have a function to find a path between two nodes using an heuristic function. 
 		
 		public	PathFinder(){}
 

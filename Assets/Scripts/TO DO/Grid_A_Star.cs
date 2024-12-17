@@ -6,14 +6,10 @@ using PathFinding;
 
 public class Grid_A_Star : A_Star<GridCell, CellConnection, GridConnections, Grid, GridHeuristic>
 {
-	// Class that implements the A* pathfinding algorithm	
-	// over a Grid graph, componsed of GridCells and CellConnections
-	// using GridHeuristic as the Heuristic function.
+    // CLASS THAT IMPLEMENTS A* PATHFINDING OVER A GRID GRAPH
+    // CONSTRUCTOR CALLS BASE CLASS WITHOUT PARAMETERS
 
-	// NOTHING TO DO HERE
-
-	public Grid_A_Star(int maxNodes, float maxTime, int maxDepth) : base(maxNodes, maxTime, maxDepth)
-	{
-
-	}
-};
+    public Grid_A_Star() : base()
+    {
+    }
+}

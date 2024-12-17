@@ -6,23 +6,21 @@ using PathFinding;
 
 public class GridHeuristic : Heuristic<GridCell>
 {
-	// Class that represents a Heuristic function to estimate the cost of going from 
-	// one GridCell to another
+    // CONSTRUCTOR: SETS THE GOAL NODE
+    public GridHeuristic(GridCell goal) : base(goal)
+    {
+        goalNode = goal;
+    }
 
-	
-	// constructor takes a goal node for estimating
-	public GridHeuristic(GridCell goal):base(goal){
-		goalNode = goal;
-	}
-	
-	 // generates an estimated cost to reach the stored goal from the given node
-	public override float estimateCost(GridCell fromNode){
-		return 0;// TO IMPLEMENT
-	}
+    // ESTIMATES COST USING EUCLIDEAN DISTANCE
+    public override float estimateCost(GridCell fromNode)
+    {
+        return Vector3.Distance(fromNode.center, goalNode.center);
+    }
 
-	// determines if the goal node has been reached by node
-	public override bool goalReached(GridCell node){
-		return false;// TO IMPLEMENT
-	}
-
-};
+    // CHECKS IF THE GOAL NODE IS REACHED
+    public override bool goalReached(GridCell node)
+    {
+        return node.getId() == goalNode.getId();
+    }
+}

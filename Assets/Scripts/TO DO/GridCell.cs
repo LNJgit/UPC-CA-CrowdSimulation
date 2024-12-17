@@ -6,30 +6,35 @@ using PathFinding;
 
 public class GridCell : Node 
 {
-	public GridCell(int i):base(i) {
-		// TO IMPLEMENT
-	}
-	public GridCell(GridCell n):base(n) {
-		// TO IMPLEMENT
-	}
+    public float xMin, xMax, zMin, zMax; // GRID CELL BOUNDARIES
+    public Vector3 center;              // CENTER POSITION OF THE CELL
+    public bool occupied;               // FLAG TO INDICATE OBSTACLE PRESENCE
 
-	// Your class that represents a grid cell node derives from Node
+    // MAIN CONSTRUCTOR: INITIALIZES CELL PROPERTIES
+    public GridCell(int id, Vector3 position, float size) : base(id) 
+    {
+        xMin = position.x - size / 2;  // SET LEFT BOUNDARY
+        xMax = position.x + size / 2;  // SET RIGHT BOUNDARY
+        zMin = position.z - size / 2;  // SET LOWER BOUNDARY
+        zMax = position.z + size / 2;  // SET UPPER BOUNDARY
+        center = position;             // SET CENTER POSITION
+        occupied = false;              // DEFAULT: NOT OCCUPIED
+    }
 
-	// You add any data needed to represent a grid cell node
+    // COPY CONSTRUCTOR: COPIES ALL PROPERTIES FROM ANOTHER GRIDCELL
+    public GridCell(GridCell other) : base(other) 
+    {
+        xMin = other.xMin;     // COPY XMIN
+        xMax = other.xMax;     // COPY XMAX
+        zMin = other.zMin;     // COPY ZMIN
+        zMax = other.zMax;     // COPY ZMAX
+        center = other.center; // COPY CENTER POSITION
+        occupied = other.occupied; // COPY OCCUPANCY STATUS
+    }
 
-	// EXAMPLE DATA
-	/*
-	protected float xMin;
-	protected float xMax;
-	protected float zMin;
-	protected float zMax;
-
-	protected bool occupied;
-
-	protected Vector3 center;
-	*/
-
-	// You also add any constructors and methods to implement your grid cell node class
-
-	// TO IMPLEMENT
-};
+    // METHOD TO SET THE CELL AS OCCUPIED OR EMPTY
+    public void SetOccupied(bool isOccupied)
+    {
+        occupied = isOccupied; // UPDATE OCCUPIED STATUS
+    }
+}
