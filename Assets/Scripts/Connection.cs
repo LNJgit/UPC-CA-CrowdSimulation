@@ -8,16 +8,16 @@ namespace PathFinding{
 	public abstract class Connection<TNode>
 	where TNode : Node
 	{
-	// Abstract class that represent the connection between 2 nodes
+	
 		
 		[System.NonSerialized]
-		public TNode fromNode; // reference to the origin node
+		public TNode fromNode; 
 		[System.NonSerialized]
-		public TNode toNode; // reference to the destination node
-		public int fromNodeId; // id of the origin node
-		public int toNodeId; // id of the destination node
+		public TNode toNode; 
+		public int fromNodeId; 
+		public int toNodeId; 
 
-		public float cost; // the cost of using that connection in a path 
+		public float cost;  
 
 		public Connection(TNode from, TNode to){
 			fromNode = from; 

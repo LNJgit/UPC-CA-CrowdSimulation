@@ -9,7 +9,7 @@ public class Simulator : MonoBehaviour
 
     void Start()
     {
-        // Find all agents in the scene and ensure they are registered with the PathManager
+       
         foreach (var agentObject in GameObject.FindGameObjectsWithTag("Agent"))
         {
             Agent agent = agentObject.GetComponent<Agent>();
@@ -23,7 +23,7 @@ public class Simulator : MonoBehaviour
 
                 if (pathManager != null)
                 {
-                    pathManager.RegisterAgent(agent); // Ensure each agent is registered
+                    pathManager.RegisterAgent(agent); 
                 }
                 else
                 {
@@ -35,6 +35,6 @@ public class Simulator : MonoBehaviour
 
     void Update()
     {
-        // This could be used for simulation-wide updates if necessary in the future
+        
     }
 }

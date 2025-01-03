@@ -22,8 +22,8 @@ public class OrientationManager : MonoBehaviour
         else if (direction.sqrMagnitude > 0.01f)
         {
             Quaternion targetRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
-            //Debug.Log($"Rotating to face direction: {direction}");
+           
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, (rotateSpeed * 0.2f) * Time.deltaTime);
         }
         else
         {

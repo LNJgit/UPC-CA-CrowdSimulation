@@ -9,7 +9,7 @@ namespace PathFinding{
 	where TNode : Node
 	where TConnection : Connection<TNode>
 	{
-	// Class to handle a list of connections 
+	
 		
 		public List<TConnection> connections;
 		

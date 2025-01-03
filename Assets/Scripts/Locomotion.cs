@@ -7,13 +7,13 @@ public class Locomotion : MonoBehaviour
     public Tracker tracker;
     public Animator animator;
 
-    // Smoothing variables
+    
     public float speedSmoothTime = 0.2f;
     public float directionSmoothTime = 0.2f;
     private float speedSmoothVelocity;
     private float directionSmoothVelocity;
 
-    // Current values for smoothing
+    
     private float currentSpeed;
     private float currentDirection;
 

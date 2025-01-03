@@ -30,10 +30,11 @@ public class GridPathTest : MonoBehaviour
         GridCell startCell = grid.nodes[0];                    // START AT FIRST CELL
         GridCell goalCell = grid.nodes[grid.nodes.Count - 1];  // GOAL AT LAST CELL
 
-        pathfinder = new Grid_A_Star(); // PARAMETERS: MAX NODES, TIME, DEPTH
-        GridHeuristic heuristic = new GridHeuristic(goalCell);
+        pathfinder = new Grid_A_Star(); 
+        GridHeuristic heuristic = new GridHeuristic(goalCell, FindObjectOfType<PathManager>()); // PASS PATHMANAGER
         int found = -1;
         List<GridCell> path = pathfinder.findpath(grid, startCell, goalCell, heuristic, ref found);
+
 
         // VISUALIZE PATH
         if (found > 0)

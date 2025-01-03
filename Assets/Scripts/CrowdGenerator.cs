@@ -7,7 +7,7 @@ public class CrowdGenerator : MonoBehaviour
     public GameObject prefab;
     [SerializeField] private int N = 20;
     [SerializeField] private float MinimumDistance = 2.0f;
-    [SerializeField] private float spawnRange = 20.0f;
+    [SerializeField] public float spawnRange = 20.0f;
 
     private List<Vector3> positions = new List<Vector3>();
 

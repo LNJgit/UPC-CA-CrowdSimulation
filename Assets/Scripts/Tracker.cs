@@ -24,9 +24,9 @@ public class Tracker : MonoBehaviour
         }
         if (dotProduct < 0)
         {
-            return -speed; // Negative speed when moving backward
+            return -speed; 
         }
-        return speed; // Positive speed when moving forward
+        return speed; 
     }
 
     public float calculateDirection()
@@ -34,19 +34,19 @@ public class Tracker : MonoBehaviour
         Vector3 currentForward = transform.forward;
         Vector3 lastForward = lastRotation * Vector3.forward;
 
-        // Calculate the signed angle in degrees between the two vectors
+      
         float angle = Vector3.SignedAngle(lastForward, currentForward, Vector3.up);
 
         float scaledDirection = angle*10;
 
-        return Mathf.Clamp(scaledDirection, -1f, 1f); // Clamp to avoid extreme values
+        return Mathf.Clamp(scaledDirection, -1f, 1f); 
     }
 
 
 
     public float calculateDirectionLocked()
     {
-        // Calculate direction based on displacement
+       
         Vector3 displacement = transform.position - lastPosition;
         Vector3 right = transform.right;
 
@@ -54,15 +54,15 @@ public class Tracker : MonoBehaviour
 
         if (Mathf.Abs(direction) < 0.1f)
         {
-            return 0f; // Forward or backward or no movement
+            return 0f; 
         }
         else if (direction > 0)
         {
-            return 1f; // Right
+            return 1f;
         }
         else
         {
-            return -1f; // Left
+            return -1f; 
         }
     }
 
@@ -88,13 +88,13 @@ public class Tracker : MonoBehaviour
         Vector3 currentPosition = transform.position;
         Quaternion currentRotation = transform.rotation;
 
-        // Calculate displacement
+       
         displacementWorld = currentPosition - lastPosition;
         speed = displacementWorld.magnitude / Time.deltaTime;
 
         forwardVector = transform.forward;
 
-        //Debug.Log($" Time: {Time.time}, Direction: {getDirection()}, Speed: {speed}");
+        
         if (!orientationManager.lockRotation)
         {
             currentDirection = calculateDirection();
